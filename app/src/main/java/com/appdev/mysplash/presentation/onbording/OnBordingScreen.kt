@@ -27,7 +27,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBordingScreen(){
+fun OnBordingScreen(
+    event:(OnbordingEvent)->Unit
+){
     Column(modifier = Modifier.fillMaxSize()) {
         val pagerState= rememberPagerState(initialPage = 0) {
             page.size
@@ -76,8 +78,8 @@ fun OnBordingScreen(){
                 }
                 FoodButton(text = buttonState.value[1]) {
                     scope.launch {
-                        if (pagerState.currentPage == 3) {
-                            //TODO : goto HomePage
+                        if (pagerState.currentPage == 2) {
+                            event(OnbordingEvent.saveAppEntry)
                         } else {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
                         }
